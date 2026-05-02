@@ -1,0 +1,1003 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Make It Known — Web Design for Businesses</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap"
+        rel="stylesheet" />
+    <style>
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --bg: #0d0e12;
+            --navy: #0c1a2e;
+            --navy-light: #102240;
+            --ink: #e9e7e2;
+            --muted: #6b7d94;
+            --gold: #f0c040;
+            --gold-dark: #c49a14;
+            --border: rgba(240, 192, 64, 0.14);
+            --border-sub: rgba(255, 255, 255, 0.06);
+            --section-pad: clamp(5rem, 10vw, 9rem);
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: var(--bg);
+            color: var(--ink);
+            font-size: clamp(15px, 1.6vw, 17px);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1.4rem clamp(1.5rem, 6vw, 5rem);
+            background: rgba(13, 14, 18, 0.93);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .nav-logo {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            color: var(--gold);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            font-size: 0.78rem;
+            font-weight: 500;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--muted);
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: var(--gold);
+        }
+
+        #hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 8rem clamp(1.5rem, 6vw, 5rem) var(--section-pad);
+            position: relative;
+            overflow: hidden;
+            background: radial-gradient(ellipse 65% 55% at 72% 52%, var(--navy) 0%, transparent 75%), var(--bg);
+        }
+
+        #hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(240, 192, 64, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(240, 192, 64, 0.03) 1px, transparent 1px);
+            background-size: 60px 60px;
+            pointer-events: none;
+        }
+
+        .hero-tag {
+            font-size: 0.75rem;
+            letter-spacing: 0.24em;
+            text-transform: uppercase;
+            color: var(--gold);
+            font-weight: 500;
+            margin-bottom: 2rem;
+            opacity: 0;
+            animation: fadeUp 0.8s 0.1s forwards;
+        }
+
+        .hero-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(3.2rem, 8vw, 7.5rem);
+            font-weight: 300;
+            line-height: 1.05;
+            letter-spacing: -0.01em;
+            max-width: 14ch;
+            color: var(--ink);
+            opacity: 0;
+            animation: fadeUp 0.9s 0.25s forwards;
+        }
+
+        .hero-title em {
+            font-style: italic;
+            color: var(--gold);
+        }
+
+        .hero-sub {
+            margin-top: 2.5rem;
+            font-size: clamp(1rem, 1.8vw, 1.12rem);
+            color: var(--muted);
+            max-width: 50ch;
+            font-weight: 300;
+            opacity: 0;
+            animation: fadeUp 0.9s 0.45s forwards;
+        }
+
+        .hero-cta {
+            margin-top: 3.5rem;
+            display: flex;
+            gap: 1.2rem;
+            flex-wrap: wrap;
+            opacity: 0;
+            animation: fadeUp 0.9s 0.6s forwards;
+        }
+
+        .btn-primary {
+            display: inline-block;
+            padding: 0.9rem 2.4rem;
+            background: var(--gold);
+            color: #0d0e12;
+            text-decoration: none;
+            font-size: 0.8rem;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            transition: background 0.2s, color 0.2s;
+        }
+
+        .btn-primary:hover {
+            background: var(--gold-dark);
+            color: #fff;
+        }
+
+        .btn-outline {
+            display: inline-block;
+            padding: 0.9rem 2.4rem;
+            border: 1px solid var(--gold);
+            color: var(--gold);
+            text-decoration: none;
+            font-size: 0.8rem;
+            font-weight: 500;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            transition: background 0.2s, color 0.2s;
+        }
+
+        .btn-outline:hover {
+            background: var(--gold);
+            color: #0d0e12;
+        }
+
+        .hero-deco {
+            position: absolute;
+            right: clamp(2rem, 8vw, 8rem);
+            top: 50%;
+            transform: translateY(-50%);
+            width: clamp(180px, 28vw, 360px);
+            height: clamp(180px, 28vw, 360px);
+            border: 1px solid rgba(240, 192, 64, 0.22);
+            border-radius: 50%;
+            opacity: 0;
+            animation: fadeIn 1.4s 0.7s forwards;
+        }
+
+        .hero-deco::before {
+            content: '';
+            position: absolute;
+            inset: 22px;
+            border: 1px solid rgba(240, 192, 64, 0.1);
+            border-radius: 50%;
+        }
+
+        .hero-deco::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width: 12px;
+            height: 12px;
+            background: var(--gold);
+            border-radius: 50%;
+            box-shadow: 0 0 24px 8px rgba(240, 192, 64, 0.3);
+        }
+
+        section {
+            padding: var(--section-pad) clamp(1.5rem, 6vw, 5rem);
+        }
+
+        .section-label {
+            font-size: 0.72rem;
+            letter-spacing: 0.24em;
+            text-transform: uppercase;
+            color: var(--gold);
+            font-weight: 500;
+            margin-bottom: 1.2rem;
+        }
+
+        .section-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(2rem, 4.5vw, 3.8rem);
+            font-weight: 300;
+            line-height: 1.12;
+            margin-bottom: 1.5rem;
+            color: var(--ink);
+        }
+
+        .divider {
+            width: 48px;
+            height: 2px;
+            background: var(--gold);
+            margin-bottom: 3rem;
+        }
+
+        #about {
+            border-top: 1px solid var(--border);
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 5rem;
+            align-items: center;
+            background: var(--navy);
+        }
+
+        .about-text p {
+            color: var(--muted);
+            font-weight: 300;
+            margin-bottom: 1.2rem;
+        }
+
+        .about-text p strong {
+            color: var(--gold);
+            font-weight: 500;
+        }
+
+        .about-stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+
+        .stat {
+            padding: 2rem;
+            border: 1px solid var(--border);
+            background: rgba(240, 192, 64, 0.03);
+            position: relative;
+        }
+
+        .stat::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 2px;
+            height: 100%;
+            background: var(--gold);
+        }
+
+        .stat-num {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 3rem;
+            font-weight: 300;
+            line-height: 1;
+            color: var(--gold);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 0.78rem;
+            color: var(--muted);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+
+        #services {
+            border-top: 1px solid var(--border);
+            background: var(--bg);
+        }
+
+        .services-intro {
+            max-width: 60ch;
+            color: var(--muted);
+            font-weight: 300;
+            margin-bottom: 3.5rem;
+        }
+
+        .plan-toggle {
+            display: flex;
+            border: 1px solid var(--border);
+            width: fit-content;
+            margin-bottom: 3rem;
+        }
+
+        .toggle-btn {
+            padding: 0.65rem 1.8rem;
+            font-size: 0.78rem;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            border: none;
+            background: transparent;
+            cursor: pointer;
+            color: var(--muted);
+            font-family: 'DM Sans', sans-serif;
+            transition: background 0.2s, color 0.2s;
+        }
+
+        .toggle-btn.active {
+            background: var(--gold);
+            color: #0d0e12;
+            font-weight: 700;
+        }
+
+        .plans-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+        }
+
+        .plan-card {
+            border: 1px solid var(--border-sub);
+            padding: 2.5rem 2rem;
+            position: relative;
+            background: var(--navy);
+            transition: border-color 0.25s, box-shadow 0.25s;
+        }
+
+        .plan-card:hover {
+            border-color: rgba(240, 192, 64, 0.35);
+            box-shadow: 0 10px 48px rgba(240, 192, 64, 0.06);
+        }
+
+        .plan-card.featured {
+            border-color: var(--gold);
+            background: var(--navy-light);
+        }
+
+        .plan-badge {
+            position: absolute;
+            top: -1px;
+            right: 2rem;
+            background: var(--gold);
+            color: #0d0e12;
+            font-size: 0.66rem;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            font-weight: 700;
+            padding: 0.28rem 0.9rem;
+        }
+
+        .plan-duration {
+            font-size: 0.72rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--gold);
+            font-weight: 500;
+            margin-bottom: 0.7rem;
+        }
+
+        .plan-name {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.8rem;
+            font-weight: 400;
+            margin-bottom: 0.4rem;
+            color: var(--ink);
+        }
+
+        .plan-price {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.6rem;
+            font-weight: 300;
+            line-height: 1;
+            color: var(--gold);
+            margin: 1.2rem 0 0.3rem;
+        }
+
+        .plan-price span {
+            font-size: 0.95rem;
+            font-family: 'DM Sans', sans-serif;
+            color: var(--muted);
+        }
+
+        .plan-desc {
+            font-size: 0.85rem;
+            color: var(--muted);
+            margin-bottom: 1.8rem;
+            font-weight: 300;
+        }
+
+        .plan-features {
+            list-style: none;
+            margin-bottom: 2rem;
+        }
+
+        .plan-features li {
+            font-size: 0.86rem;
+            color: var(--muted);
+            padding: 0.5rem 0;
+            border-bottom: 1px solid var(--border-sub);
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        .plan-features li::before {
+            content: '—';
+            color: var(--gold);
+            font-size: 0.78rem;
+            flex-shrink: 0;
+        }
+
+        .plan-features li strong {
+            color: var(--ink);
+            font-weight: 500;
+        }
+
+        .plan-cta {
+            display: block;
+            text-align: center;
+            padding: 0.75rem;
+            border: 1px solid rgba(240, 192, 64, 0.4);
+            text-decoration: none;
+            font-size: 0.76rem;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--gold);
+            transition: background 0.2s, color 0.2s;
+        }
+
+        .plan-cta:hover {
+            background: var(--gold);
+            color: #0d0e12;
+        }
+
+        .plan-card.featured .plan-cta {
+            background: var(--gold);
+            color: #0d0e12;
+            border-color: var(--gold);
+            font-weight: 700;
+        }
+
+        #work {
+            border-top: 1px solid var(--border);
+            background: var(--navy);
+        }
+
+        .work-card {
+            border: 1px solid var(--border);
+            padding: 3.5rem 3rem;
+            background: rgba(240, 192, 64, 0.03);
+            display: flex;
+            align-items: center;
+            gap: 4rem;
+            max-width: 860px;
+        }
+
+        .work-flag {
+            font-size: clamp(3.5rem, 6vw, 5.5rem);
+            line-height: 1;
+            flex-shrink: 0;
+        }
+
+        .work-card-text h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.8rem;
+            font-weight: 400;
+            margin-bottom: 0.8rem;
+            color: var(--ink);
+        }
+
+        .work-card-text p {
+            color: var(--muted);
+            font-weight: 300;
+            font-size: 0.95rem;
+            line-height: 1.8;
+        }
+
+        .work-tag {
+            display: inline-block;
+            margin-top: 1.2rem;
+            font-size: 0.7rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--gold);
+            font-weight: 500;
+            border-bottom: 1px solid var(--gold);
+            padding-bottom: 2px;
+        }
+
+        #contact {
+            border-top: 1px solid var(--border);
+            background: var(--bg);
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 5rem;
+            align-items: start;
+        }
+
+        .contact-left p {
+            color: var(--muted);
+            font-weight: 300;
+            margin-bottom: 2.5rem;
+        }
+
+        .contact-detail {
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
+        }
+
+        .contact-item {
+            display: flex;
+            flex-direction: column;
+            gap: 0.2rem;
+        }
+
+        .contact-item-label {
+            font-size: 0.7rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--gold);
+            font-weight: 500;
+        }
+
+        .contact-item-value {
+            font-size: 1rem;
+            color: var(--ink);
+            text-decoration: none;
+        }
+
+        .contact-item-value:hover {
+            color: var(--gold);
+        }
+
+        .contact-right form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
+        }
+
+        .form-group label {
+            font-size: 0.7rem;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            color: var(--muted);
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            background: var(--navy);
+            border: 1px solid var(--border-sub);
+            padding: 0.85rem 1rem;
+            color: var(--ink);
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 300;
+            outline: none;
+            transition: border-color 0.2s;
+            resize: none;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            border-color: var(--gold);
+        }
+
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+            color: rgba(107, 125, 148, 0.45);
+        }
+
+        .btn-send {
+            align-self: flex-start;
+            padding: 0.9rem 2.4rem;
+            background: var(--gold);
+            color: #0d0e12;
+            border: none;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.8rem;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: background 0.2s, color 0.2s;
+        }
+
+        .btn-send:hover {
+            background: var(--gold-dark);
+            color: #fff;
+        }
+
+        footer {
+            background: var(--navy);
+            border-top: 1px solid var(--border);
+            padding: 2rem clamp(1.5rem, 6vw, 5rem);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        footer p {
+            font-size: 0.8rem;
+            color: var(--muted);
+            font-weight: 300;
+        }
+
+        .footer-logo {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.15rem;
+            color: var(--gold);
+            letter-spacing: 0.06em;
+            opacity: 0.65;
+        }
+
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(22px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 0.5;
+            }
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity 0.7s ease, transform 0.7s ease;
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: none;
+        }
+
+        @media (max-width: 860px) {
+            #about {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+
+            .plans-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-grid {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+
+            .work-card {
+                flex-direction: column;
+                gap: 2rem;
+                padding: 2.5rem 1.8rem;
+            }
+
+            .hero-deco {
+                display: none;
+            }
+
+            .nav-links {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav>
+        <a class="nav-logo" href="#hero">Make It Known</a>
+        <ul class="nav-links">
+            <li><a href="#about">About</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#work">Work</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <section id="hero">
+        <div class="hero-tag">Web Design &amp; Development</div>
+        <h1 class="hero-title">Your business, <em>finally</em> online.</h1>
+        <p class="hero-sub">I build clean, professional websites for businesses that are ready to be found. No agencies,
+            no bloated teams — just focused, personal craftsmanship.</p>
+        <div class="hero-cta">
+            <a href="#services" class="btn-primary">See Plans</a>
+            <a href="#contact" class="btn-outline">Get in Touch</a>
+        </div>
+        <div class="hero-deco"></div>
+    </section>
+
+    <section id="about">
+        <div class="about-text reveal">
+            <div class="section-label">About</div>
+            <h2 class="section-title">An indie developer who gets it done.</h2>
+            <div class="divider"></div>
+            <p>I'm an independent web developer who builds websites for real businesses — the kind that need to be found
+                online, look trustworthy, and work without fuss.</p>
+            <p>No bloated agency overhead. No outsourced corners. When you work with me, you get <strong>direct,
+                    personal service</strong> from the person who actually builds your site.</p>
+            <p>Every site I deliver is custom-built, mobile-ready, fast, and designed to represent your business with
+                confidence.</p>
+        </div>
+        <div class="about-stats reveal">
+            <div class="stat">
+                <div class="stat-num">100%</div>
+                <div class="stat-label">Custom Built</div>
+            </div>
+            <div class="stat">
+                <div class="stat-num">2yr</div>
+                <div class="stat-label">Max Maintenance</div>
+            </div>
+            <div class="stat">
+                <div class="stat-num">1</div>
+                <div class="stat-label">Developer, Full Focus</div>
+            </div>
+            <div class="stat">
+                <div class="stat-num">∞</div>
+                <div class="stat-label">Revisions Until Right</div>
+            </div>
+        </div>
+    </section>
+
+    <section id="services">
+        <div class="section-label reveal">Services &amp; Pricing</div>
+        <h2 class="section-title reveal">Plans built around your timeline.</h2>
+        <div class="divider reveal"></div>
+        <p class="services-intro reveal">Choose a duration that fits your commitment. Every plan includes a fully custom
+            website — pick with or without ongoing maintenance.</p>
+
+        <div class="plan-toggle reveal">
+            <button class="toggle-btn active" onclick="showPlans('no-maintenance')">Without Maintenance</button>
+            <button class="toggle-btn" onclick="showPlans('maintenance')">With Maintenance</button>
+        </div>
+
+        <div class="plans-grid" id="no-maintenance">
+            <div class="plan-card reveal">
+                <div class="plan-duration">Monthly</div>
+                <div class="plan-name">Starter</div>
+                <div class="plan-desc">Perfect for trying out a professional web presence.</div>
+                <div class="plan-price">Contact <span>for pricing</span></div>
+                <ul class="plan-features">
+                    <li>Custom designed website</li>
+                    <li>Mobile responsive</li>
+                    <li>Up to 5 pages</li>
+                    <li>Contact form or email setup</li>
+                    <li><strong>No ongoing maintenance</strong></li>
+                </ul>
+                <a href="#contact" class="plan-cta">Get Started</a>
+            </div>
+            <div class="plan-card featured reveal">
+                <div class="plan-badge">Popular</div>
+                <div class="plan-duration">Yearly</div>
+                <div class="plan-name">Standard</div>
+                <div class="plan-desc">The ideal choice for a growing business ready to commit.</div>
+                <div class="plan-price">Contact <span>for pricing</span></div>
+                <ul class="plan-features">
+                    <li>Custom designed website</li>
+                    <li>Mobile responsive</li>
+                    <li>Up to 10 pages</li>
+                    <li>SEO basics included</li>
+                    <li>Analytics setup</li>
+                    <li><strong>No ongoing maintenance</strong></li>
+                </ul>
+                <a href="#contact" class="plan-cta">Get Started</a>
+            </div>
+            <div class="plan-card reveal">
+                <div class="plan-duration">2 Years</div>
+                <div class="plan-name">Premium</div>
+                <div class="plan-desc">Long-term commitment with maximum value and stability.</div>
+                <div class="plan-price">Contact <span>for pricing</span></div>
+                <ul class="plan-features">
+                    <li>Custom designed website</li>
+                    <li>Mobile responsive</li>
+                    <li>Unlimited pages</li>
+                    <li>Full SEO optimization</li>
+                    <li>Analytics + Google Business</li>
+                    <li><strong>No ongoing maintenance</strong></li>
+                </ul>
+                <a href="#contact" class="plan-cta">Get Started</a>
+            </div>
+        </div>
+
+        <div class="plans-grid" id="maintenance" style="display:none;">
+            <div class="plan-card reveal">
+                <div class="plan-duration">Monthly</div>
+                <div class="plan-name">Starter+</div>
+                <div class="plan-desc">Your site, always up to date every month.</div>
+                <div class="plan-price">Contact <span>for pricing</span></div>
+                <ul class="plan-features">
+                    <li>Custom designed website</li>
+                    <li>Mobile responsive</li>
+                    <li>Up to 5 pages</li>
+                    <li>Contact form or email setup</li>
+                    <li><strong>Monthly content updates</strong></li>
+                    <li><strong>Bug fixes &amp; uptime monitoring</strong></li>
+                </ul>
+                <a href="#contact" class="plan-cta">Get Started</a>
+            </div>
+            <div class="plan-card featured reveal">
+                <div class="plan-badge">Popular</div>
+                <div class="plan-duration">Yearly</div>
+                <div class="plan-name">Standard+</div>
+                <div class="plan-desc">A full year of website peace of mind.</div>
+                <div class="plan-price">Contact <span>for pricing</span></div>
+                <ul class="plan-features">
+                    <li>Custom designed website</li>
+                    <li>Mobile responsive</li>
+                    <li>Up to 10 pages</li>
+                    <li>SEO basics included</li>
+                    <li>Analytics setup</li>
+                    <li><strong>Ongoing updates &amp; maintenance</strong></li>
+                    <li><strong>Priority support</strong></li>
+                </ul>
+                <a href="#contact" class="plan-cta">Get Started</a>
+            </div>
+            <div class="plan-card reveal">
+                <div class="plan-duration">2 Years</div>
+                <div class="plan-name">Premium+</div>
+                <div class="plan-desc">Two full years of maintenance — maximum value.</div>
+                <div class="plan-price">Contact <span>for pricing</span></div>
+                <ul class="plan-features">
+                    <li>Custom designed website</li>
+                    <li>Mobile responsive</li>
+                    <li>Unlimited pages</li>
+                    <li>Full SEO optimization</li>
+                    <li>Analytics + Google Business</li>
+                    <li><strong>2 years full maintenance</strong></li>
+                    <li><strong>Dedicated priority support</strong></li>
+                </ul>
+                <a href="#contact" class="plan-cta">Get Started</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="work">
+        <div class="section-label reveal">Our Work</div>
+        <h2 class="section-title reveal">Expanding into new territory.</h2>
+        <div class="divider reveal"></div>
+        <div class="work-card reveal">
+            <div class="work-flag">🇦🇪</div>
+            <div class="work-card-text">
+                <h3>First Project in the Middle East</h3>
+                <p>We're actively expanding into the Middle Eastern market — working with local businesses in the UAE
+                    and beyond to establish their digital presence for the very first time.</p>
+                <p style="margin-top:0.8rem;">This is our first chapter in the region, and we're committed to bringing
+                    the same quality, care, and craftsmanship that defines every Make It Known project.</p>
+                <span class="work-tag">UAE Market — In Progress</span>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact">
+        <div class="contact-grid">
+            <div class="contact-left reveal">
+                <div class="section-label">Contact</div>
+                <h2 class="section-title">Let's build something together.</h2>
+                <div class="divider"></div>
+                <p>Have a business that deserves to be found online? Drop me a message and I'll get back to you within
+                    24 hours.</p>
+                <div class="contact-detail">
+                    <div class="contact-item">
+                        <span class="contact-item-label">Email</span>
+                        <a href="mailto:makeitknown01@gmail.com" class="contact-item-value">makeitknown01@gmail.com</a>
+                    </div>
+                    <div class="contact-item">
+                        <span class="contact-item-label">Response Time</span>
+                        <span class="contact-item-value">Within 24 hours</span>
+                    </div>
+                </div>
+            </div>
+            <div class="contact-right reveal">
+                <form onsubmit="handleSubmit(event)">
+                    <div class="form-group">
+                        <label>Your Name</label>
+                        <input type="text" placeholder="Business name or full name" required />
+                    </div>
+                    <div class="form-group">
+                        <label>Email Address</label>
+                        <input type="email" placeholder="your@email.com" required />
+                    </div>
+                    <div class="form-group">
+                        <label>Message</label>
+                        <textarea rows="5" placeholder="Tell me about your business and what you need..."
+                            required></textarea>
+                    </div>
+                    <button type="submit" class="btn-send">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>© 2025 Make It Known. All rights reserved.</p>
+        <div class="footer-logo">Make It Known</div>
+    </footer>
+
+    <script>
+        const reveals = document.querySelectorAll('.reveal');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((e, i) => {
+                if (e.isIntersecting) {
+                    setTimeout(() => e.target.classList.add('visible'), i * 80);
+                    observer.unobserve(e.target);
+                }
+            });
+        }, { threshold: 0.1 });
+        reveals.forEach(el => observer.observe(el));
+
+        function showPlans(type) {
+            document.getElementById('no-maintenance').style.display = type === 'no-maintenance' ? 'grid' : 'none';
+            document.getElementById('maintenance').style.display = type === 'maintenance' ? 'grid' : 'none';
+            document.querySelectorAll('.toggle-btn').forEach((btn, i) => {
+                btn.classList.toggle('active', (i === 0 && type === 'no-maintenance') || (i === 1 && type === 'maintenance'));
+            });
+        }
+
+        function handleSubmit(e) {
+            e.preventDefault();
+            const btn = e.target.querySelector('.btn-send');
+            btn.textContent = 'Message Sent ✓';
+            btn.style.background = '#1a6640';
+            btn.style.color = '#fff';
+            btn.disabled = true;
+            setTimeout(() => {
+                btn.textContent = 'Send Message';
+                btn.style.background = '';
+                btn.style.color = '';
+                btn.disabled = false;
+                e.target.reset();
+            }, 3000);
+        }
+    </script>
+</body>
+
+</html>
